@@ -6,16 +6,17 @@ using UnityEngine;
 
 public static class Noise
 {
-    public class NoiseMapValues
+    [System.Serializable]
+    public struct NoiseMapValues
     {
-        public int MapWidth { get; set; }
-        public int MapHeight { get; set; }
-        public int Seed { get; set; }
-        public float Scale { get; set; }
-        public int Octaves { get; set; }
-        public float Persistance { get; set; }
-        public float Lacunarity { get; set; }
-        public Vector2 Offset { get; set; }
+        [Min(1)] public int MapWidth;
+        [Min(1)] public int MapHeight;
+        public int Seed;
+        public float Scale;
+        [Min(0)] public int Octaves;
+        [Range(0, 1)] public float Persistance;
+        [Min(1)] public float Lacunarity;
+        public Vector2 Offset;
     }
 
     public static float[,] GenerateNoiseMap(NoiseMapValues noiseParams)
@@ -84,7 +85,6 @@ public static class Noise
                 }
             }
         }
-
 
         //Normalise values back to be between 0 & 1
         for (int y = 0; y < noiseParams.MapHeight; y++)

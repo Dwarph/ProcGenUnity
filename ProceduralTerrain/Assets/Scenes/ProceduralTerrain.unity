@@ -326,9 +326,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1cc108528a71ef4597f8a9bfc15c19b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mapWidth: 10
-  mapHeight: 10
-  noiseScale: 0.3
+  noiseMapValues:
+    MapWidth: 100
+    MapHeight: 100
+    Seed: 0
+    Scale: 28.24
+    Octaves: 4
+    Persistance: 0.5
+    Lacunarity: 2
+    Offset: {x: 0, y: 0}
+  mapWidth: 100
+  mapHeight: 100
+  noiseScale: 28.24
+  octaves: 0
+  persistance: 0.5
+  lacunarity: 2
+  seed: 0
+  offset: {x: 0, y: 0}
+  AutoUpdate: 1
+  regions: []
 --- !u!4 &1422309101
 Transform:
   m_ObjectHideFlags: 0
@@ -392,7 +408,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 15c70ef9fd8b0ec47a704b1779454ba0, type: 2}
+  - {fileID: 2100000, guid: 7a3a10d2a1e2794479a2f13300818c2e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -430,7 +446,7 @@ Transform:
   m_GameObject: {fileID: 1435441225}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 10, y: 1, z: 10}
+  m_LocalScale: {x: 100, y: 1, z: 100}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 3
