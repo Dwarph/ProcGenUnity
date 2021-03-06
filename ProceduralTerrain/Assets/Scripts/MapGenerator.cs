@@ -14,6 +14,8 @@ public class MapGenerator : MonoBehaviour
 
     public DrawMode drawMode;
     public NoiseMapValues noiseMapValues;
+    public float MeshHeightMultiplier = 1;
+    public AnimationCurve MeshHeightCurve;
     public bool AutoUpdate = false;
     public TerrainType[] regions;
 
@@ -38,7 +40,7 @@ public class MapGenerator : MonoBehaviour
 
             case DrawMode.MESH:
                 Color[] meshColourMap = TextureGenerator.ColourMapFromNoiseMapAndTerrainTypes(noiseMap, regions, noiseMapValues.MapWidth, noiseMapValues.MapHeight);
-                mapDisplay.DrawMesh(MeshGenerator.GenerateTerrainMesh(noiseMap), TextureGenerator.TextureFromColourMap(meshColourMap, noiseMapValues.MapWidth, noiseMapValues.MapHeight));
+                mapDisplay.DrawMesh(MeshGenerator.GenerateTerrainMesh(noiseMap, MeshHeightMultiplier, MeshHeightCurve), TextureGenerator.TextureFromColourMap(meshColourMap, noiseMapValues.MapWidth, noiseMapValues.MapHeight));
                 break;
         }
     }
