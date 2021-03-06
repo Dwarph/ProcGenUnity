@@ -224,6 +224,7 @@ GameObject:
   - component: {fileID: 914430838}
   - component: {fileID: 914430837}
   - component: {fileID: 914430836}
+  - component: {fileID: 914430839}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -289,13 +290,44 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 914430835}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: -10}
+  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: 0, y: 854.32, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
+--- !u!114 &914430839
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 914430835}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a79441f348de89743a2939f4d699eac1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_RenderShadows: 1
+  m_RequiresDepthTextureOption: 2
+  m_RequiresOpaqueTextureOption: 2
+  m_CameraType: 0
+  m_Cameras: []
+  m_RendererIndex: -1
+  m_VolumeLayerMask:
+    serializedVersion: 2
+    m_Bits: 1
+  m_VolumeTrigger: {fileID: 0}
+  m_RenderPostProcessing: 0
+  m_Antialiasing: 0
+  m_AntialiasingQuality: 2
+  m_StopNaN: 0
+  m_Dithering: 0
+  m_ClearDepth: 1
+  m_RequiresDepthTexture: 0
+  m_RequiresColorTexture: 0
+  m_Version: 2
 --- !u!1 &1422309099
 GameObject:
   m_ObjectHideFlags: 0
@@ -326,25 +358,50 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1cc108528a71ef4597f8a9bfc15c19b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  drawMode: 1
+  switchMode: 0
+  lerpColourMapTime: 1
   noiseMapValues:
     MapWidth: 100
     MapHeight: 100
-    Seed: 0
-    Scale: 28.24
+    Seed: 12
+    Scale: 24
     Octaves: 4
     Persistance: 0.5
     Lacunarity: 2
     Offset: {x: 0, y: 0}
-  mapWidth: 100
-  mapHeight: 100
-  noiseScale: 28.24
-  octaves: 0
-  persistance: 0.5
-  lacunarity: 2
-  seed: 0
-  offset: {x: 0, y: 0}
   AutoUpdate: 1
-  regions: []
+  regions:
+  - name: DeepestWater
+    height: 0.1
+    colour: {r: 0.29045033, g: 0.44168624, b: 0.5754717, a: 1}
+  - name: DeepWater
+    height: 0.2
+    colour: {r: 0.33333334, g: 0.5372549, b: 0.7176471, a: 1}
+  - name: Water
+    height: 0.4
+    colour: {r: 0.47450984, g: 0.6784314, b: 0.86274517, a: 1}
+  - name: Sand
+    height: 0.45
+    colour: {r: 0.9339623, g: 0.8787266, b: 0.48900855, a: 1}
+  - name: Land
+    height: 0.6
+    colour: {r: 0.16470589, g: 0.49803925, b: 0.38431376, a: 1}
+  - name: Forest
+    height: 0.73
+    colour: {r: 0.13007298, g: 0.3490566, b: 0.27434453, a: 1}
+  - name: Rock
+    height: 0.8
+    colour: {r: 0.5188679, g: 0.44461423, b: 0.37936097, a: 1}
+  - name: SnowyRock
+    height: 0.85
+    colour: {r: 0.41509432, g: 0.41509432, b: 0.41509432, a: 1}
+  - name: Snow
+    height: 0.98
+    colour: {r: 0.9150943, g: 0.9150943, b: 0.9150943, a: 1}
+  - name: Peak
+    height: 1
+    colour: {r: 0.5, g: 0.5, b: 0.5, a: 1}
 --- !u!4 &1422309101
 Transform:
   m_ObjectHideFlags: 0

@@ -12,12 +12,14 @@ public static class Noise
         [Min(1)] public int MapWidth;
         [Min(1)] public int MapHeight;
         public int Seed;
-        public float Scale;
-        [Min(0)] public int Octaves;
+        [Min(0.501f)] public float Scale;
+        [Range(1,29)] public int Octaves;
         [Range(0, 1)] public float Persistance;
         [Min(1)] public float Lacunarity;
         public Vector2 Offset;
     }
+
+    private const int RNG_RANGE = 10000;
 
     public static float[,] GenerateNoiseMap(NoiseMapValues noiseParams)
     {
@@ -31,8 +33,8 @@ public static class Noise
         Vector2[] octaveOffsets = new Vector2[noiseParams.Octaves];
         for (int i = 0; i < noiseParams.Octaves; i++)
         {
-            float offsetX = rng.Next(-100000, 100000) + noiseParams.Offset.x;
-            float offsetY = rng.Next(-100000, 100000) + noiseParams.Offset.y;
+            float offsetX = rng.Next(-RNG_RANGE, RNG_RANGE) + noiseParams.Offset.x;
+            float offsetY = rng.Next(-RNG_RANGE, RNG_RANGE) + noiseParams.Offset.y;
             octaveOffsets[i] = new Vector2(offsetX, offsetY);
         }
 
@@ -63,7 +65,7 @@ public static class Noise
 
                     float perlinValue = Mathf.PerlinNoise(sampleX, sampleY);
 
-                    //Change from range 0-1 to -1 to 1 to get more interesting noise
+                    //Change from range (0 - 1) to (-1 - 1) to get more interesting noise
                     perlinValue = perlinValue * 2 - 1;
                     noiseHeight += perlinValue * amplitude;
 
