@@ -8,18 +8,11 @@ public class MapGenerator : MonoBehaviour
     public enum DrawMode
     {
         NOISE_MAP,
-        COLOUR_MAP
-    }
-
-    public enum SwitchMode
-    {
-        INSTANT,
-        LERPED
+        COLOUR_MAP,
+        MESH
     }
 
     public DrawMode drawMode;
-    public SwitchMode switchMode;
-    public float lerpColourMapTime;
     public NoiseMapValues noiseMapValues;
     public bool AutoUpdate = false;
     public TerrainType[] regions;
@@ -30,17 +23,6 @@ public class MapGenerator : MonoBehaviour
 
         MapDisplay mapDisplay = FindObjectOfType<MapDisplay>();
 
-        if (switchMode == SwitchMode.INSTANT)
-        {
-            InstantSwitch(mapDisplay, noiseMap);
-        }
-        else if (switchMode == SwitchMode.LERPED)
-        {
-            LerpedSwitch(mapDisplay, noiseMap);
-        }
-    }
-    private void InstantSwitch(MapDisplay mapDisplay, float[,] noiseMap)
-    {
         switch (drawMode)
         {
             case DrawMode.COLOUR_MAP:
@@ -53,28 +35,13 @@ public class MapGenerator : MonoBehaviour
                 Color[] monoColourMap = TextureGenerator.MonoColourMapFromHeightMap(noiseMap);
                 mapDisplay.DrawTexture(TextureGenerator.TextureFromColourMap(monoColourMap, noiseMapValues.MapWidth, noiseMapValues.MapHeight));
                 break;
-        }
-    }
 
-    private void LerpedSwitch(MapDisplay mapDisplay, float[,] noiseMap)
-    {
-        Color[] terrainTypeColourMap = TextureGenerator.ColourMapFromNoiseMapAndTerrainTypes(noiseMap, regions, noiseMapValues.MapWidth, noiseMapValues.MapHeight);
-        Color[] monoColourMap = TextureGenerator.MonoColourMapFromHeightMap(noiseMap);
-        switch (drawMode)
-        {
-            case DrawMode.COLOUR_MAP:
-                IEnumerator colourMapCoroutine = mapDisplay.SwitchColourMapsOverTime(monoColourMap, terrainTypeColourMap, noiseMapValues.MapWidth, noiseMapValues.MapHeight, lerpColourMapTime);
-                StartCoroutine(colourMapCoroutine);
-                break;
-
-            default:
-            case DrawMode.NOISE_MAP:
-                IEnumerator noiseMapCoroutine = mapDisplay.SwitchColourMapsOverTime(terrainTypeColourMap, monoColourMap, noiseMapValues.MapWidth, noiseMapValues.MapHeight, lerpColourMapTime);
-                StartCoroutine(noiseMapCoroutine);
+            case DrawMode.MESH:
+                Color[] meshColourMap = TextureGenerator.ColourMapFromNoiseMapAndTerrainTypes(noiseMap, regions, noiseMapValues.MapWidth, noiseMapValues.MapHeight);
+                mapDisplay.DrawMesh(MeshGenerator.GenerateTerrainMesh(noiseMap), TextureGenerator.TextureFromColourMap(meshColourMap, noiseMapValues.MapWidth, noiseMapValues.MapHeight));
                 break;
         }
     }
-
 }
 
 [System.Serializable]
