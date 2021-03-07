@@ -31,9 +31,11 @@ public static class Noise
         Vector2[] octaveOffsets = new Vector2[noiseParams.Octaves];
         for (int i = 0; i < noiseParams.Octaves; i++)
         {
-            float offsetX = rng.Next(-RNG_RANGE, RNG_RANGE) + noiseParams.Offset.x;
-            float offsetY = rng.Next(-RNG_RANGE, RNG_RANGE) + noiseParams.Offset.y;
-            octaveOffsets[i] = new Vector2(offsetX, offsetY);
+            Vector2 offset = new Vector2(){
+                x = rng.Next(-RNG_RANGE, RNG_RANGE) + noiseParams.Offset.x,
+                y = rng.Next(-RNG_RANGE, RNG_RANGE) + noiseParams.Offset.y
+            };
+            octaveOffsets[i] = offset;
         }
 
         float maxNoiseHeight = float.MinValue;
@@ -58,10 +60,12 @@ public static class Noise
 
                     //Each octave samples from a different random place in the noise, using the offset
                     //Subtracting the halfs means we sample from the centre of the noise, allowing our scale to zoom in centrally
-                    float sampleX = (x - halfWidth) / noiseParams.Scale * freq + octaveOffsets[i].x;
-                    float sampleY = (y - halfHeight) / noiseParams.Scale * freq + octaveOffsets[i].y;
+                    Vector2 sample = new Vector2(){
+                        x = (x - halfWidth) / noiseParams.Scale * freq + octaveOffsets[i].x,
+                        y = (y - halfHeight) / noiseParams.Scale * freq + octaveOffsets[i].y
+                    };
 
-                    float perlinValue = Mathf.PerlinNoise(sampleX, sampleY);
+                    float perlinValue = Mathf.PerlinNoise(sample.x, sample.y);
 
                     //Change from range (0 - 1) to (-1 - 1) to get more interesting noise
                     perlinValue = perlinValue * 2 - 1;
