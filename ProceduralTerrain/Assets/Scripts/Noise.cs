@@ -9,11 +9,9 @@ public static class Noise
     [System.Serializable]
     public struct NoiseMapValues
     {
-        [Min(1)] public int MapWidth;
-        [Min(1)] public int MapHeight;
         public int Seed;
         [Min(0.501f)] public float Scale;
-        [Range(1,29)] public int Octaves;
+        [Range(1, 29)] public int Octaves;
         [Range(0, 1)] public float Persistance;
         [Min(1)] public float Lacunarity;
         public Vector2 Offset;
@@ -21,14 +19,14 @@ public static class Noise
 
     private const int RNG_RANGE = 10000;
 
-    public static float[,] GenerateNoiseMap(NoiseMapValues noiseParams)
+    public static float[,] GenerateNoiseMap(NoiseMapValues noiseParams, int mapChunkSize)
     {
         if (noiseParams.Scale <= 0)
         {
             noiseParams.Scale = float.MinValue;
         }
 
-        float[,] noiseMap = new float[noiseParams.MapWidth, noiseParams.MapHeight];
+        float[,] noiseMap = new float[mapChunkSize, mapChunkSize];
         System.Random rng = new System.Random(noiseParams.Seed);
         Vector2[] octaveOffsets = new Vector2[noiseParams.Octaves];
         for (int i = 0; i < noiseParams.Octaves; i++)
@@ -41,14 +39,14 @@ public static class Noise
         float maxNoiseHeight = float.MinValue;
         float minNoiseHeight = float.MaxValue;
 
-        float halfWidth = noiseParams.MapWidth / 2;
-        float halfHeight = noiseParams.MapHeight / 2;
+        float halfWidth = mapChunkSize / 2;
+        float halfHeight = mapChunkSize / 2;
 
 
 
-        for (int y = 0; y < noiseParams.MapHeight; y++)
+        for (int y = 0; y < mapChunkSize; y++)
         {
-            for (int x = 0; x < noiseParams.MapWidth; x++)
+            for (int x = 0; x < mapChunkSize; x++)
             {
                 float amplitude = 1;
                 float freq = 1;
@@ -89,9 +87,9 @@ public static class Noise
         }
 
         //Normalise values back to be between 0 & 1
-        for (int y = 0; y < noiseParams.MapHeight; y++)
+        for (int y = 0; y < mapChunkSize; y++)
         {
-            for (int x = 0; x < noiseParams.MapWidth; x++)
+            for (int x = 0; x < mapChunkSize; x++)
             {
                 noiseMap[x, y] = Mathf.InverseLerp(minNoiseHeight, maxNoiseHeight, noiseMap[x, y]);
             }
