@@ -15,6 +15,7 @@ public static class Noise
         [Range(0, 1)] public float Persistance;
         [Min(1)] public float Lacunarity;
         public Vector2 Offset;
+        public Vector2 Centre;
     }
 
     private const int RNG_RANGE = 10000;
@@ -32,8 +33,8 @@ public static class Noise
         for (int i = 0; i < noiseParams.Octaves; i++)
         {
             Vector2 offset = new Vector2(){
-                x = rng.Next(-RNG_RANGE, RNG_RANGE) + noiseParams.Offset.x,
-                y = rng.Next(-RNG_RANGE, RNG_RANGE) + noiseParams.Offset.y
+                x = rng.Next(-RNG_RANGE, RNG_RANGE) + noiseParams.Offset.x + noiseParams.Centre.x,
+                y = rng.Next(-RNG_RANGE, RNG_RANGE) + noiseParams.Offset.y + noiseParams.Centre.y
             };
             octaveOffsets[i] = offset;
         }
