@@ -14,9 +14,12 @@ public static class TextureGenerator
                 float currentHeight = noiseMap[x, y];
                 foreach (TerrainType region in regions)
                 {
-                    if (currentHeight <= region.height)
+                    if (currentHeight >= region.height)
                     {
                         colourMap[y * width + x] = region.colour;
+                    }
+                    else
+                    {
                         break;
                     }
                 }
